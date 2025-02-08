@@ -1,0 +1,93 @@
+.orders-container {
+    padding: 30px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .orders-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .no-history {
+    font-size: 1.2rem;
+    color: #888;
+  }
+  
+  .purchase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .purchase-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+  }
+  
+  .purchase-header {
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 15px;
+  }
+  
+  .purchase-date,
+  .purchase-time {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .label {
+    color: #555;
+  }
+  
+  .purchase-items {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .purchase-item {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .item-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+  }
+  
+  .item-details {
+    flex: 1;
+    font-size: 1rem;
+    color: #333;
+    word-wrap: break-word;
+    white-space: normal;
+    font-weight: 500;
+  }
+  
+  .total-amount {
+    margin-top: 20px;
+  }
+  
+  .total-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  

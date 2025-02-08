@@ -1,0 +1,218 @@
+/* App.css */
+
+/* Container for the entire cart section */
+.cart-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Header for the cart */
+.cart-heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Styling for the cart items list */
+.cart-items-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 30px;  /* Increased gap for more space between image and details */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: 900px;  /* Can adjust width here */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Increased size for product image */
+.cart-item img {
+  width: 100px;  /* Increased image size */
+  height: 100px;
+  border-radius: 5px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+/* Product name and price made bolder and larger */
+.cart-item-name {
+  font-size: 1.4em;  /* Increased font size */
+  font-weight: bold;  /* Bold text */
+  color: #333;
+}
+
+.cart-item-price {
+  font-size: 1.2em;  /* Larger price font */
+  font-weight: bold;
+  color: #28a745;  /* Green color for pricing */
+}
+
+/* Aligning quantity and actions */
+.cart-item-quantity {
+  font-size: 1.1em;  /* Slightly larger quantity */
+  font-weight: bold;
+}
+
+/* Styling buttons for the cart */
+.cart-item-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.cart-button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-button:hover {
+  background-color: #0056b3;
+}
+
+.remove-button {
+  background-color: #e74c3c;
+}
+
+.remove-button:hover {
+  background-color: #c0392b;
+}
+
+/* Total amount section */
+.total-amount {
+  font-size: 1.4em;  /* Larger font size for total */
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: right;
+  color: #333;
+}
+
+/* Discount section */
+.discount-section {
+  margin-top: 20px;
+}
+
+.discount-buttons {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.discount-button {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.discount-button:hover {
+  background-color: #218838;
+}
+
+/* Coupon section */
+.coupon-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coupon-input {
+  padding: 10px;
+  width: 70%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.apply-coupon-button {
+  padding: 10px 15px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.apply-coupon-button:hover {
+  background-color: #e67e22;
+}
+
+/* Coupon details */
+.coupon-details {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Delivery Section */
+.delivery-section {
+  margin-top: 20px;
+}
+
+.pincode-input {
+  padding: 10px;
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.delivery-button {
+  padding: 10px 15px;
+  background-color: #16a085;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delivery-button:hover {
+  background-color: #1abc9c;
+}
+
+/* Purchase button */
+.purchase-button {
+  padding: 15px 20px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.purchase-button:hover {
+  background-color: #c0392b;
+}
+
+/* Cart Icon Styling */
+.cart-link i {
+  margin-right: 10px;  /* Space between the icon and the text */
+  font-size: 1.4em;  /* Adjust icon size if needed */
+  color: inherit;  /* Ensure the color inherits from the parent */
+}
+
+.cart-link {
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
+}
+
+.cart-link span.cart-count {
+  margin-left: 10px;  /* Add space between the icon and the quantity count */
+}
