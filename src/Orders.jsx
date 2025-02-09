@@ -15,7 +15,7 @@ function Orders() {
 
   return (
     <div className="container my-5">
-      <h2 className="text-center text-primary mb-4">Purchase History</h2>
+     <h1 className="text-center text-white my-4 display-3 font-weight-bold bg-dark py-4 rounded shadow-lg">Purchase History</h1>
 
       {purchaseHistory.length === 0 ? (
         <p className="text-center text-muted">No purchase history available.</p>

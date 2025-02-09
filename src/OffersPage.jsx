@@ -7,6 +7,8 @@ const OffersPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isOfferActive, setIsOfferActive] = useState(true);
   const [remainingTime, setRemainingTime] = useState(60);  // 10 minutes timer
+  const [currentPage, setCurrentPage] = useState(1);  // Track the current page
+  const itemsPerPage = 8;  // Number of items per page
 
   const offers = [
     { name: "Snacks", price: 50, image: "snacks.jpeg" },
@@ -50,6 +52,14 @@ const OffersPage = () => {
     offer.name && offer.name.toLowerCase().includes(searchQuery.toLowerCase()) // Ensure offer.name is defined
   );
 
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredOffers.length / itemsPerPage);  // Calculate total pages
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentOffers = filteredOffers.slice(indexOfFirstItem, indexOfLastItem);
+
   useEffect(() => {
     if (remainingTime > 0) {
       const timer = setInterval(() => {
@@ -71,7 +81,7 @@ const OffersPage = () => {
     }
   };
 
-  const offerItems = filteredOffers.map((offer, index) => (
+  const offerItems = currentOffers.map((offer, index) => (
     <li key={index} className="vegItem">
       <div className="badge bg-danger text-white position-absolute top-0 end-0 m-2">SALE</div>
       <img src={offer.image} width="80" height="80" className="vegImage" alt={offer.name} />
@@ -84,28 +94,76 @@ const OffersPage = () => {
     </li>
   ));
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <div className="main">
-      <h1 className="heading">Special Offers</h1>
+     <h1 className="text-center text-white my-4 display-3 font-weight-bold bg-dark py-4 rounded shadow-lg">Special Offers</h1>
 
       {/* Search bar */}
-      <div className="search-container">
+      <div className="search-container d-flex align-items-center">
         <input 
           type="text" 
           value={searchQuery} 
           onChange={(e) => setSearchQuery(e.target.value)} 
-          placeholder="Search Offers..." 
-          className="search-bar"
+          placeholder="Search for offer items..." 
+          className="search-bar form-control mb-4" 
         />
       </div>
-      
+
       {isOfferActive ? (
         <div>
           <p className="text-center">Time remaining: {remainingTime}s</p>
           {filteredOffers.length === 0 ? (
-            <p className="text-center">No offers found</p>
+            <p className="no-items-found text-center mt-4">No items found</p>
           ) : (
-            <ul className="vegList">{offerItems}</ul>
+            <>
+              <ul className="vegList">{offerItems}</ul>
+
+              {/* Pagination Controls */}
+              <div className="pagination-controls text-center mt-4">
+                <button 
+                  className="btn btn-secondary mx-2" 
+                  onClick={handlePrevious} 
+                  disabled={currentPage === 1}
+                >
+                  Prev
+                </button>
+
+                {/* Page Numbers */}
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button 
+                    key={index + 1} 
+                    className={`btn mx-2 ${currentPage === index + 1 ? 'btn-primary' : 'btn-outline-primary'}`} 
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+
+                <button 
+                  className="btn btn-secondary mx-2" 
+                  onClick={handleNext} 
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            </>
           )}
         </div>
       ) : (
@@ -114,6 +172,8 @@ const OffersPage = () => {
           <p>Sorry, the offer is no longer available.</p>
         </div>
       )}
+       <p className="copyright-text">© 2025 Fresh Mart. All rights reserved.</p>
+
     </div>
   );
 };
