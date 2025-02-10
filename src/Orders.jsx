@@ -1,10 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "./store";
+import { useNavigate } from "react-router-dom";
+import Cart from "./Cart";
 
 function Orders() {
   // Fetch purchase history from the Redux state
   const purchaseHistory = useSelector((state) => state.purchaseDetails);
   let dispatch = useDispatch();
+  let redirect=useNavigate();
 
   // Reorder function: dispatching each item from purchaseDetails to the cart
   const handleReorder = (purchaseDetails) => {
@@ -66,7 +69,7 @@ function Orders() {
                   <div className="d-flex justify-content-between mt-3">
                     <button
                       className="btn btn-outline-primary btn-sm"
-                      onClick={() => handleReorder(purchase.purchaseDetails)}
+                        onClick={() => {handleReorder(purchase.purchaseDetails);redirect("/Cart")}}
                     >
                       Reorder
                     </button>

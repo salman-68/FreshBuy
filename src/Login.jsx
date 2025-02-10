@@ -11,7 +11,7 @@ function Login() {
   const navigate = useNavigate();
 
   const OnLogin = () => {
-    if (userName.current.value === "Salman" && userPassword.current.value === "Sadat@123") {
+    if (userName.current.value === "Admin" && userPassword.current.value === "Admin@1") {
       dispatch(login(userName.current.value));
       navigate("/home");
     } else {

@@ -12,6 +12,7 @@ function NonVegItems() {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
+    setCurrentPage(1);
   };
 
   // Filter items based on search query
