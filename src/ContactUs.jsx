@@ -1,16 +1,18 @@
-// ContactUs.jsx
 import { useState } from "react";
+import axios from "axios";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
 
-  // Handle changes to form fields
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
+
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -20,19 +22,24 @@ const ContactUs = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Integrate your API call or submission logic here
-    console.log("Contact Form Submitted", formData);
-    setSubmitted(true);
-    
-    // Optionally, reset the form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
+    setSubmitted(false);
+    setError(false);
+
+    try {
+      const response = await axios.post("http://localhost:8989/api/contact/save", formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.status === 200) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" }); // Reset form
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setError(true);
+    }
   };
 
   return (
@@ -56,6 +63,12 @@ const ContactUs = () => {
               {submitted && (
                 <div className="alert alert-success" role="alert">
                   Your message has been sent successfully!
+                </div>
+              )}
+
+              {error && (
+                <div className="alert alert-danger" role="alert">
+                  Failed to send message. Please try again later.
                 </div>
               )}
 
