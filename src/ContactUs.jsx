@@ -28,7 +28,8 @@ const ContactUs = () => {
     setError(false);
 
     try {
-      const response = await axios.post("http://localhost:8989/api/contact/save", formData, {
+      const response = await axios.post("https://f049-124-123-166-65.ngrok-free.app/api/contact/save"
+, formData, {
         headers: { "Content-Type": "application/json" },
       });
 
