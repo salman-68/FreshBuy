@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 
 const ContactUs = () => {
+  const API_BASE_URL = "http://localhost:8989"; // Updated to match backend URL
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -10,7 +12,8 @@ const ContactUs = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -25,11 +28,11 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(false);
-    setError(false);
+    setError(null);
+    setLoading(true);
 
     try {
-      const response = await axios.post("https://f049-124-123-166-65.ngrok-free.app/api/contact/save"
-, formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/contact/save`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -37,28 +40,27 @@ const ContactUs = () => {
         setSubmitted(true);
         setFormData({ name: "", email: "", subject: "", message: "" }); // Reset form
       }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setError(true);
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      setError(err.response?.data?.message || "Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="contact-us-page container my-5">
-      {/* Responsive row and column for adaptive sizing */}
       <div className="row justify-content-center">
         <div className="col-12 col-md-10 col-lg-8">
           <div className="card shadow-lg border-0">
-            {/* Card Header */}
             <div className="card-header bg-primary text-white text-center py-3">
               <h2 className="mb-0">Contact Us</h2>
               <p className="lead mb-0">We are here to assist you</p>
             </div>
 
-            {/* Card Body */}
             <div className="card-body p-4">
               <p className="mb-4 text-center">
-                At FreshMart, your satisfaction is our top priority. Please fill out the form below and one of our representatives will get in touch with you shortly.
+                At FreshMart, your satisfaction is our top priority. Please fill out the form below, and we will get in touch with you shortly.
               </p>
 
               {submitted && (
@@ -69,7 +71,7 @@ const ContactUs = () => {
 
               {error && (
                 <div className="alert alert-danger" role="alert">
-                  Failed to send message. Please try again later.
+                  {error}
                 </div>
               )}
 
@@ -139,14 +141,13 @@ const ContactUs = () => {
                 </div>
 
                 <div className="text-center">
-                  <button type="submit" className="btn btn-primary btn-lg">
-                    Send Message
+                  <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
+                    {loading ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </form>
             </div>
 
-            {/* Card Footer */}
             <div className="card-footer text-muted text-center py-3">
               FreshMart E-commerce | Committed to excellence
             </div>
