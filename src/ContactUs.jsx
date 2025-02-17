@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const ContactUs = () => {
-  const API_BASE_URL = "http://localhost:8989"; // Updated to match backend URL
+  const API_BASE_URL = " https://8090-2409-40f0-155-e8c2-d9a2-2b2b-2e65-f002.ngrok-free.app "; // Updated to match backend URL
 
   const [formData, setFormData] = useState({
     name: "",
