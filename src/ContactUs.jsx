@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const ContactUs = () => {
-  const API_BASE_URL = " https://8090-2409-40f0-155-e8c2-d9a2-2b2b-2e65-f002.ngrok-free.app "; // Updated to match backend URL
+  const API_BASE_URL = "https://1c06-2409-40f0-155-e8c2-d9a2-2b2b-2e65-f002.ngrok-free.app"; // Ensure this URL is correct
 
   const [formData, setFormData] = useState({
     name: "",
@@ -41,8 +41,17 @@ const ContactUs = () => {
         setFormData({ name: "", email: "", subject: "", message: "" }); // Reset form
       }
     } catch (err) {
-      console.error("Error submitting form:", err);
-      setError(err.response?.data?.message || "Failed to send message. Please try again.");
+      console.error("❌ Error submitting form:", err);
+
+      if (err.response) {
+        console.error("Server Response:", err.response.data);
+        setError(err.response.data.message || "Failed to send message. Please try again.");
+      } else if (err.request) {
+        console.error("❗ No response received from server");
+        setError("Could not connect to the server. Please try again later.");
+      } else {
+        setError("An unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }
@@ -65,13 +74,13 @@ const ContactUs = () => {
 
               {submitted && (
                 <div className="alert alert-success" role="alert">
-                  Your message has been sent successfully!
+                  ✅ Your message has been sent successfully!
                 </div>
               )}
 
               {error && (
                 <div className="alert alert-danger" role="alert">
-                  {error}
+                  ❌ {error}
                 </div>
               )}
 
