@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment, addToCart } from "./store";
+import { useNavigate } from "react-router-dom";
+import Cart from "./Cart";
 
 function MilkItems() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -11,7 +13,8 @@ function MilkItems() {
   const dispatch = useDispatch();
   const milkItems = useSelector(state => state.products.milkItems) || []; // Ensure milkItems is not undefined
   const cartItems = useSelector(state => state.cart.items) || []; // Ensure cartItems is not undefined
-
+  //Navigate 
+  const navigate =useNavigate();
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
     setCurrentPage(1);
@@ -99,7 +102,7 @@ function MilkItems() {
       <p className="copyright-text">© 2025 Fresh Mart. All rights reserved.</p>
 
       {/* Floating Cart Button */}
-      <button className={`cart-button ${isShaking ? "shake" : ""}`}>
+      <button className={`cart-button ${isShaking ? "shake" : ""}`} onClick={()=>navigate(Cart)}>
         🛒 {cartItems.length}
       </button>
     </div>

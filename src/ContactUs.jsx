@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const ContactUs = () => {
-  const API_BASE_URL = "https://1c06-2409-40f0-155-e8c2-d9a2-2b2b-2e65-f002.ngrok-free.app"; // Ensure this URL is correct
+  const API_BASE_URL= "http://localhost:8989/api/contact";  
 
   const [formData, setFormData] = useState({
     name: "",
@@ -32,7 +32,7 @@ const ContactUs = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/contact/save`, formData, {
+      const response = await axios.post(`${API_BASE_URL}/save`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 

@@ -16,6 +16,7 @@ import Orders from "./Orders";
 import MilkItems from "./MilkItems";
 import Login from "./Login";
 import OffersPage from "./OffersPage";
+import Admin from "./Admin";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -85,6 +86,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/veg" element={<VegItems />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="/offers" element={<OffersPage />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/nonvegitems" element={<NonVegItems />} />

@@ -11,12 +11,18 @@ function Login() {
   const navigate = useNavigate();
 
   const OnLogin = () => {
-    if (userName.current.value === "Admin" && userPassword.current.value === "Admin@1") {
+    if (userName.current.value === "User" && userPassword.current.value === "User@1") {
       dispatch(login(userName.current.value));
       navigate("/home");
-    } else {
+    } 
+    else if(userName.current.value === "Admin" && userPassword.current.value ==="Admin@123"){
+      dispatch(login(userName.current.value));
+      navigate("/Admin")
+    }
+    else {
       alert("You have entered wrong credentials, please check once.");
     }
+    
   };
 
   return (
