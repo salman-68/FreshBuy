@@ -1,16 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addPurchaseDetails, clearCart, decrement, increment, remove } from "./store";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";  // Import the useNavigate hook for redirection
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Cart() {
   const pincode = useRef(null);
   const dispatch = useDispatch();
-  const navigate = useNavigate();  // Initialize navigate hook
+  const navigate = useNavigate();
   const items = useSelector((state) => state.cart);
-  // Use the correct property name from the auth slice:
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  // ✅ Check authentication from localStorage
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const isAuthenticated = !!loggedInUser; // Convert to boolean
 
   const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -19,70 +21,60 @@ function Cart() {
   const [showCouponPaymentDetails, setShowCouponPaymentDetails] = useState(false);
   const [showAddress, setShowAddress] = useState(false);
 
+  // 🎟️ Optimized Coupon Code Logic
+  const couponCodes = {
+    "SADAT10": 10,
+    "SADAT20": 20,
+    "SADAT30": 30,
+    "SADAT40": 40,
+    "SADAT80": 80
+  };
+
   const handleCouponCode = () => {
-    switch (couponCode.toUpperCase()) {
-      case 'SADAT10':
-        setCouponDiscountPercentage(10);
-        break;
-      case 'SADAT20':
-        setCouponDiscountPercentage(20);
-        break;
-      case 'SADAT30':
-        setCouponDiscountPercentage(30);
-        break;
-      case 'SADAT40':
-        setCouponDiscountPercentage(40);
-        break;
-      case 'SADAT80':
-        setCouponDiscountPercentage(80);
-        break;
-      default:
-        alert("Invalid Coupon Code");
-        setCouponDiscountPercentage(0);
+    const discount = couponCodes[couponCode.toUpperCase()];
+    if (discount) {
+      setCouponDiscountPercentage(discount);
+    } else {
+      alert("❌ Invalid Coupon Code");
+      setCouponDiscountPercentage(0);
     }
   };
 
   const couponCodeDiscount = (totalAmount * couponDiscountPercentage) / 100;
   const finalNetAmount = totalAmount - couponCodeDiscount;
 
+  // 🛒 Handle Purchase with Authentication Check
   const handlePurchase = () => {
-    // Log isAuthenticated value for debugging
-    console.log("isAuthenticated:", isAuthenticated);
-
-    // Check if the user is logged in
     if (!isAuthenticated) {
-      alert('You need to log in to complete the purchase.');
-      navigate('/login');  // Redirect to the login page if not logged in
-      return;  // Prevent further execution if not logged in
-    } else {
-      // Proceed with purchase if logged in
-      const purchaseDetail = {
-        date: new Date().toLocaleDateString(),
-        time: new Date().toLocaleTimeString(),
-        purchaseDetails: [...items],
-        totalAmount,
-        discountedAmount: couponCodeDiscount,
-        finalAmount: finalNetAmount,
-      };
-
-      // Dispatch purchase details and clear the cart
-      dispatch(addPurchaseDetails(purchaseDetail));
-      dispatch(clearCart());
-
-      alert('Purchase made successfully!\nThank you for purchasing');
+      alert("🚨 You need to log in to complete the purchase.");
+      navigate("/login");
+      return;
     }
+
+    const purchaseDetail = {
+      user: loggedInUser.username,
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString(),
+      purchaseDetails: [...items],
+      totalAmount,
+      discountedAmount: couponCodeDiscount,
+      finalAmount: finalNetAmount,
+    };
+
+    dispatch(addPurchaseDetails(purchaseDetail));
+    dispatch(clearCart());
+
+    alert(`✅ Purchase Successful! Thank you, ${loggedInUser.username}`);
   };
 
+  // 📍 Check Delivery Availability
   const checkDelivery = () => {
     if (pincode.current.value === "500005") {
       setShowAddress(true);
     } else {
-      alert("Sorry, we are not delivering at your location.");
+      alert("🚚 Sorry, we are not delivering at your location yet.");
+      setShowAddress(false);
     }
-  };
-
-  const saved = () => {
-    alert("Address Saved Successfully");
   };
 
   return (
@@ -130,14 +122,12 @@ function Cart() {
             }}
           >
             <div className="d-flex justify-content-center">
-              <button className="btn btn-danger" onClick={() => dispatch(clearCart())}>
-                Clear Cart
+              <button className="btn btn-danger w-100" onClick={() => dispatch(clearCart())}>
+                🗑️ Clear Cart
               </button>
             </div>
-            <br />
-            <br />
 
-            <h4 className="text-center text-primary fw-bold mb-3">🛍️ Order Summary</h4>
+            <h4 className="text-center text-primary fw-bold mt-3">🛍️ Order Summary</h4>
 
             {/* 💰 Total Price */}
             <div className="card p-3 shadow-sm border-0 rounded bg-light mb-3">
@@ -146,7 +136,7 @@ function Cart() {
 
             {/* 🎟️ Coupon Section */}
             <div className="card p-3 shadow-sm border-0 rounded mb-3">
-              <h5 className="fw-bold text-dark">🎫 Apply Coupon Code</h5>
+              <h5 className="fw-bold text-dark">🎫 Apply Coupon</h5>
               <input
                 type="text"
                 className="form-control mb-2"
@@ -167,7 +157,7 @@ function Cart() {
               </div>
             )}
 
-            {/* 📍 Delivery Check */}
+            {/* 🚚 Delivery Check */}
             <div className="card p-3 shadow-sm border-0 rounded mb-3">
               <h5 className="fw-bold text-dark">🚚 Check Delivery</h5>
               <input type="number" className="form-control mb-2" ref={pincode} placeholder="Enter Pincode" />
@@ -175,15 +165,6 @@ function Cart() {
                 Check
               </button>
             </div>
-
-            {/* 🏡 Address Section */}
-            {showAddress && (
-              <div className="card p-3 shadow-sm border-0 rounded bg-light mb-3">
-                <p>✅ We are delivering at your location</p>
-                <input type="text" className="form-control mb-2" placeholder="Enter Your Address" />
-                <button className="btn btn-secondary w-100 rounded-pill" onClick={saved}>Save Details</button>
-              </div>
-            )}
 
             {/* ✅ Purchase Button */}
             <button className="btn btn-success w-100 rounded-pill fs-5" onClick={handlePurchase}>

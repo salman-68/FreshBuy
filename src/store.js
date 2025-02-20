@@ -1,5 +1,7 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import ProductSlider from "./ProductSlider";
+ 
+
 
 // Products slice
 const productsSlice = createSlice({
@@ -142,31 +144,54 @@ const purchaseDetailsSlice = createSlice({
     },
   },
 });
+// Registration slice
+const registrationSlice = createSlice({
+  name: "registration",
+  initialState: {
+    users: [],
+  },
+  reducers: {
+    registerUser: (state, action) => {
+      state.users.push(action.payload);
+    },
+  },
+});
+
+
 
 // Auth slice with modifications for state sync
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    isAuthenticated: !!localStorage.getItem("username"), // Ensure boolean value
+    isAuthenticated: !!localStorage.getItem("username"),
     user: localStorage.getItem("username") || null,
   },
   reducers: {
     login: (state, action) => {
-      state.isAuthenticated = true;
-      state.user = action.payload;
-      localStorage.setItem("username", action.payload);
+      const { username, password } = action.payload;
+      const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
+      const userExists = registeredUsers.find(
+        (user) => user.username === username && user.password === password
+      );
+
+      if (userExists) {
+        state.isAuthenticated = true;
+        state.user = username;
+        localStorage.setItem("username", username);
+      } else {
+        alert("Invalid credentials! Please check your username and password.");
+      }
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
       localStorage.removeItem("username");
     },
-    checkAuthState: (state) => {
-      state.isAuthenticated = !!localStorage.getItem("username");
-      state.user = localStorage.getItem("username") || null;
-    },
   },
 });
+
+
 
 // Configure the store
 const store = configureStore({
@@ -175,12 +200,14 @@ const store = configureStore({
     cart: cartSlice.reducer,
     purchaseDetails: purchaseDetailsSlice.reducer,
     auth: authSlice.reducer,
+    registration: registrationSlice.reducer,
   },
 });
-
 // Export actions and the store
 export const { addToCart, increment, decrement, remove, clearCart } =
   cartSlice.actions;
 export const { addPurchaseDetails } = purchaseDetailsSlice.actions;
 export const { login, logout, checkAuthState } = authSlice.actions;
+export const { registerUser } = registrationSlice.actions;
+
 export default store;

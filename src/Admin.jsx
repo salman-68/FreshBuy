@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
+  const navigate = useNavigate(); // ✅ Move useNavigate inside the component
+
   return (
     <>
       {/* Admin Navbar */}
@@ -36,6 +39,20 @@ function Admin() {
               <h3 style={styles.cardTitle}>Manage Products</h3>
               <p style={styles.cardText}>Add, update, and remove products.</p>
               <button style={{ ...styles.button, backgroundColor: "#ffc107", color: "#000" }}>Go</button>
+            </div>
+          </div>
+
+          {/* ✅ See Contact Details Section */}
+          <div style={styles.col}>
+            <div style={styles.card}>
+              <h3 style={styles.cardTitle}>See Contact Details</h3>
+              <p style={styles.cardText}> View The Details.</p>
+              <button 
+                style={{ ...styles.button, backgroundColor: "#ffc107", color: "#000" }} 
+                onClick={() => navigate("/admin/contacts")} // ✅ Fix onClick & Correct Route
+              >
+                Go
+              </button>
             </div>
           </div>
         </div>

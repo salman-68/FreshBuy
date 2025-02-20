@@ -1,7 +1,5 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "./store";
+import { useState, useEffect } from "react";
 import "./App.css"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/css/bundle";
@@ -17,22 +15,26 @@ import MilkItems from "./MilkItems";
 import Login from "./Login";
 import OffersPage from "./OffersPage";
 import Admin from "./Admin";
+import AdminContactList from "./ADminContactList";
+import Registration from "./Registrations.jsx";
 
 function App() {
-  const cart = useSelector((state) => state.cart);
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [username, setUsername] = useState(localStorage.getItem("username") || null);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const closeSidebar = () => setSidebarOpen(false);
+
+  // Handle login (to be called after successful login)
+  const handleLogin = (user) => {
+    localStorage.setItem("username", user);
+    setUsername(user);
   };
 
-  const closeSidebar = () => {
-    setSidebarOpen(false);
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    setUsername(null);
   };
 
   return (
@@ -60,12 +62,14 @@ function App() {
               <i className="fas fa-envelope"></i> Contact Us
             </Link>
             <Link to="/cart" onClick={closeSidebar}>
-              <i className="fas fa-shopping-cart"></i> Cart <span className="cart-count">{totalItems}</span>
+              <i className="fas fa-shopping-cart"></i> Cart
             </Link>
-            {isAuthenticated ? (
+
+            {/* Authentication Section */}
+            {username ? (
               <div className="auth-section">
-                <span>Welcome, {user}</span>
-                <button className="logout-btn" onClick={() => dispatch(logout())}>Logout</button>
+                <span>Hi, {username}</span>
+                <button className="logout-btn" onClick={handleLogout}>Logout</button>
               </div>
             ) : (
               <Link to="/login" onClick={closeSidebar}>
@@ -87,13 +91,15 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/veg" element={<VegItems />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/contacts" element={<AdminContactList />} />
             <Route path="/offers" element={<OffersPage />} />
+            <Route path="/registrations" element={<Registration />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/nonvegitems" element={<NonVegItems />} />
             <Route path="/milkItems" element={<MilkItems />} />
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/orders" element={<Orders />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
           </Routes>
         </div>
       </div>

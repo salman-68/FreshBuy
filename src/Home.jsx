@@ -19,7 +19,6 @@ function Home() {
              </div>
       </section>
 
-
             {/* Featured Categories Section with Cards */}
             <section className="featured-categories py-5">
                 <div className="container">
@@ -76,14 +75,14 @@ function Home() {
                 <div className="container">
                     <h2 className="text-center mb-4">Special Offers</h2>
                     <ul className="offer-list list-unstyled fs-5">
-                        <li className="promotion-item text-info mb-3 p-3 rounded-3 shadow-sm bg-light"><p style={{textAlign:"center"}}>
-                            Weekly Discounts on Fresh Vegetables</p>
+                        <li className="promotion-item text-info mb-3 p-3 rounded-3 shadow-sm bg-light" style={{ textAlign: "center" }}>
+                            Weekly Discounts on Fresh Vegetables
                         </li>
-                        <li className="promotion-item text-info mb-3 p-3 rounded-3 shadow-sm bg-light"><p style={{textAlign:"center"}}>
-                            Buy One, Get One Free on Select Snacks</p>
+                        <li className="promotion-item text-info mb-3 p-3 rounded-3 shadow-sm bg-light" style={{ textAlign: "center" }}>
+                            Buy One, Get One Free on Select Snacks
                         </li>
-                        <li className="promotion-item text-info mb-3 p-3 rounded-3 shadow-sm bg-light"><p style={{textAlign:"center"}}>
-                            Discounted Organic Range This Month</p>
+                        <li className="promotion-item text-info mb-3 p-3 rounded-3 shadow-sm bg-light" style={{ textAlign: "center" }}>
+                            Discounted Organic Range This Month
                         </li>
                     </ul>
                     <div className="text-center mt-4">
@@ -125,7 +124,7 @@ function Home() {
                     <h2 className="mb-4">What Our Customers Say</h2>
                     <blockquote className="blockquote">
                         <p className="mb-0">"I love how fresh everything is! FreshMart is my go-to for weekly groceries."</p>
-                        <p><br/><footer className="blockquote-footer">Salman Khan</footer></p>
+                        <footer className="blockquote-footer">Salman Khan</footer>
                     </blockquote>
                 </div>
             </section>

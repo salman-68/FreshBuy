@@ -102,8 +102,8 @@ function MilkItems() {
       <p className="copyright-text">© 2025 Fresh Mart. All rights reserved.</p>
 
       {/* Floating Cart Button */}
-      <button className={`cart-button ${isShaking ? "shake" : ""}`} onClick={()=>navigate(Cart)}>
-        🛒 {cartItems.length}
+      <button className={`cart-button ${isShaking ? "shake" : ""}`} onClick={()=>navigate('/cart')}>
+        🛒  
       </button>
     </div>
   );
