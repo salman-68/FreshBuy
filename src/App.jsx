@@ -15,7 +15,7 @@ import MilkItems from "./MilkItems";
 import Login from "./Login";
 import OffersPage from "./OffersPage";
 import Admin from "./Admin";
-import AdminContactList from "./ADminContactList";
+import AdminContactList from "./AdminContactList";
 import Registration from "./Registrations.jsx";
 
 function App() {
