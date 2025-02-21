@@ -15,19 +15,30 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+  
+    // Retrieve existing users from localStorage
+    const existingUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+  
+    // Check if the username already exists
+    const userExists = existingUsers.some(user => user.username === formData.username);
+  
+    if (userExists) {
+      alert("Username already exists! Choose a different one.");
+      return; // Stop execution if username exists
+    }
+  
     // Store user in Redux
     dispatch(registerUser(formData));
-
-    // Store user in localStorage
-    const existingUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+  
+    // Store new user in localStorage
     existingUsers.push(formData);
     localStorage.setItem("registeredUsers", JSON.stringify(existingUsers));
-
+  
     alert("Registration successful!");
     setFormData({ username: "", password: "" });
     navigate("/Login");
   };
+  
 
   return (
     <div
