@@ -15,7 +15,7 @@ function Home() {
         <div className="container position-relative z-index-1">
              <h1 className="display-4 fw-bold text-shadow">Welcome to FreshMart – Your Freshness Delivered!</h1>
              <p className="lead fs-4 text-shadow">Shop the freshest produce, quality groceries, and more, all at the best prices.</p>
-             <Link to="/" className="btn btn-lg btn-info rounded-pill px-5 mt-4 shadow-lg">Start Shopping</Link>
+             <Link to="/veg" className="btn btn-lg btn-info rounded-pill px-5 mt-4 shadow-lg">Start Shopping</Link>
              </div>
       </section>
 

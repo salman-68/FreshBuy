@@ -11,45 +11,28 @@ body {
 
 /* Navigation Bar */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #34495e;
-  padding: 1.2rem 2rem;
   position: sticky;
   top: 0;
-  z-index: 1000;
-  border-bottom: 2px solid #5d6d7e;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar .logo {
-  color: #fff;
-  font-size: 2rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-.navbar nav {
+  width: 100%;
   display: flex;
-  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
 }
 
-.nav-link {
-  color: #ddd;
-  text-decoration: none;
-  font-size: 1.1rem;
-  padding: 0.5rem 1.2rem;
-  border-radius: 25px;
-  transition: all 0.3s ease;
+/* Logo */
+.logo-container {
+  display: flex;
+  justify-content: flex-start; /* Aligns items to the left */
+  align-items: center; /* Keeps items vertically centered */
 }
 
-.nav-link:hover,
-.nav-link.active {
-  background: #1abc9c;
-  color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
+
+.logo {
+  width: 230px; /* Adjust size */
+  height: 150px;
 }
 
 /* Sidebar */
@@ -109,28 +92,61 @@ body {
 
 /* Menu Button */
 .menu-btn {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  font-size: 28px;
-  background: #1abc9c;
+  font-size: 24px;
+  background: none;
   border: none;
-  color: white;
   cursor: pointer;
-  padding: 10px 12px;
-  border-radius: 5px;
-  transition: all 0.2s ease-in-out;
-  z-index: 1100;
+  margin-right: 15px;
+  transition: transform 0.2s ease;
 }
 
 .menu-btn:hover {
-  background: #16a085;
   transform: scale(1.1);
 }
 
-.menu-btn:focus {
-  outline: none;
+/* Login Button */
+.login-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.login-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Logout Section */
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.auth-section span {
+  font-size: 1rem;
+  color: white;
+}
+
+.logout-btn {
+  background: linear-gradient(to right, #ff6a00, #ee0979);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(to right, #ee0979, #ff6a00);
+  transform: scale(1.05);
+}
+
 
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
@@ -161,13 +177,9 @@ body {
   .main-content.shrink {
     margin-left: 150px;
   }
-
-  .menu-btn {
-    font-size: 24px;
-    padding: 8px 10px;
-  }
 }
-/*serach button*/
+
+/* Search Bar */
 .search-container {
   max-width: 600px;
   margin: 0 auto;
@@ -175,17 +187,17 @@ body {
 }
 
 .search-bar {
-  padding-left: 35px; /* Space for the search icon */
+  padding-left: 35px;
   font-size: 1rem;
-  border-radius: 25px; /* Rounded corners for a modern look */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  border: 1px solid #ddd; /* Light border color */
+  border-radius: 25px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 }
 
 .search-bar:focus {
   outline: none;
-  border-color: #007bff; /* Highlight border on focus */
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); /* Subtle shadow on focus */
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
 }
 
 .search-btn {
@@ -200,52 +212,57 @@ body {
 }
 
 .search-btn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 .search-btn:focus {
   outline: none;
 }
-/*no items found styling*/
+
+/* No Items Found Styling */
 .no-items-found {
-  font-size: 1.25rem; /* Slightly larger text */
-  color: #6c757d; /* Gray color for a soft, less harsh look */
-  font-weight: 500; /* Semi-bold text for a stronger appearance */
+  font-size: 1.25rem;
+  color: #6c757d;
+  font-weight: 500;
   padding: 15px;
   border-radius: 8px;
-  background-color: #f8d7da; /* Light red background for emphasis */
-  border: 1px solid #f5c6cb; /* Slightly darker red border */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  max-width: 500px; /* Limit the width for better readability */
-  margin: 0 auto; /* Center the text */
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .no-items-found i {
   font-size: 1.5rem;
-  color: #f44336; /* Red icon color for warning */
-  margin-right: 8px; /* Space between icon and text */
+  color: #f44336;
+  margin-right: 8px;
 }
-/*home header styling*/
+
+/* Home Header Styling */
 .hero {
   position: relative;
-  background-color: #2d3748; /* Dark gray background for overlay */
+  background-color: #2d3748;
   color: white;
+  text-align: center;
+  padding: 40px 20px;
 }
 
 .hero h1 {
-  font-family: 'Roboto', sans-serif; /* For a clean, modern look */
+  font-family: 'Roboto', sans-serif;
   font-size: 3rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Light shadow for text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero p {
   font-size: 1.25rem;
   font-weight: 300;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Light shadow for text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero .btn-info {
-  background-color: #ff7f50; /* A coral orange color for the button to contrast nicely with blue */
+  background-color: #ff7f50;
   border: none;
   padding: 12px 25px;
   font-size: 1.1rem;
@@ -254,16 +271,13 @@ body {
 }
 
 .hero .btn-info:hover {
-  background-color: #ff5722; /* Slightly darker coral on hover */
+  background-color: #ff5722;
   transform: scale(1.05);
 }
 
-.text-shadow {
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4); /* Enhance the text-shadow for visibility */
-}
-/*veg pagenation*/
+/* Pagination */
 .pagination-controls button {
-  font-size: 1.0rem;
+  font-size: 1rem;
   padding: 10px 20px;
 }
 
@@ -281,27 +295,37 @@ body {
   background-color: #6c757d;
   color: white;
 }
-/*copyright section*/
+
+/* Copyright Section */
 .copyright-text {
   text-align: center;
   font-size: 14px;
-  color: #6c757d;  /* A muted gray color */
+  color: #6c757d;
   margin-top: 30px;
   padding: 10px 0;
-  background-color: #f8f9fa;  /* Light background color */
-  border-top: 1px solid #e7e7e7;  /* Light border for separation */
+  background-color: #f8f9fa;
+  border-top: 1px solid #e7e7e7;
   font-family: 'Arial', sans-serif;
 }
 
 .copyright-text a {
-  color: #007bff;  /* Blue color for links */
-  text-decoration: none;  /* Remove underline */
+  color: #007bff;
+  text-decoration: none;
 }
 
-.copyright-text a:hover {
-  text-decoration: underline;  /* Underline on hover */
+copyright-text a:hover {
+  text-decoration: underline;
 }
- 
-
-
-
+/*user box addition*/
+.user-box {
+  background: linear-gradient(to right, #333333, #555555); /* Dark Gray to Medium Gray */
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.user-box:hover {
+  transform: scale(1.05);
+}

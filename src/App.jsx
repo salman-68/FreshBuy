@@ -1,6 +1,6 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
-import "./App.css"; 
+import { useState } from "react";
+import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/css/bundle";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -25,13 +25,11 @@ function App() {
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const closeSidebar = () => setSidebarOpen(false);
 
-  // Handle login (to be called after successful login)
   const handleLogin = (user) => {
     localStorage.setItem("username", user);
     setUsername(user);
   };
 
-  // Handle logout
   const handleLogout = () => {
     localStorage.removeItem("username");
     setUsername(null);
@@ -43,48 +41,40 @@ function App() {
         {/* Sidebar */}
         <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
           <nav className="nav-links">
-            <Link to="/home" onClick={closeSidebar}>
-              <i className="fas fa-home"></i> Home
-            </Link>
-            <Link to="/veg" onClick={closeSidebar}>
-              <i className="fas fa-leaf"></i> Veg Items
-            </Link>
-            <Link to="/nonvegitems" onClick={closeSidebar}>
-              <i className="fas fa-drumstick-bite"></i> Non-Veg Items
-            </Link>
-            <Link to="/milkItems" onClick={closeSidebar}>
-              <i className="fas fa-glass-whiskey"></i> Milk Items
-            </Link>
-            <Link to="/orders" onClick={closeSidebar}>
-              <i className="fas fa-box"></i> Orders
-            </Link>
-            <Link to="/contactus" onClick={closeSidebar}>
-              <i className="fas fa-envelope"></i> Contact Us
-            </Link>
-            <Link to="/cart" onClick={closeSidebar}>
-              <i className="fas fa-shopping-cart"></i> Cart
-            </Link>
-
-            {/* Authentication Section */}
-            {username ? (
-              <div className="auth-section">
-                <span>Hi, {username}</span>
-                <button className="logout-btn" onClick={handleLogout}>Logout</button>
-              </div>
-            ) : (
-              <Link to="/login" onClick={closeSidebar}>
-                <i className="fas fa-sign-in-alt"></i> Login
-              </Link>
-            )}
+            <Link to="/home" onClick={closeSidebar}><i className="fas fa-home"></i> Home</Link>
+            <Link to="/veg" onClick={closeSidebar}><i className="fas fa-leaf"></i> Veg Items</Link>
+            <Link to="/nonvegitems" onClick={closeSidebar}><i className="fas fa-drumstick-bite"></i> Non-Veg Items</Link>
+            <Link to="/milkItems" onClick={closeSidebar}><i className="fas fa-glass-whiskey"></i> Milk Items</Link>
+            <Link to="/orders" onClick={closeSidebar}><i className="fas fa-box"></i> Orders</Link>
+            <Link to="/contactus" onClick={closeSidebar}><i className="fas fa-envelope"></i> Contact Us</Link>
+            <Link to="/cart" onClick={closeSidebar}><i className="fas fa-shopping-cart"></i> Cart</Link>
           </nav>
         </div>
 
         {/* Main Content */}
         <div className={`main-content ${sidebarOpen ? "shrink" : ""}`}>
-          {/* Menu Button */}
-          <button className="menu-btn" onClick={toggleSidebar}>
-            <i className="fas fa-bars"></i>
-          </button>
+          {/* Navbar */}
+          <div className="navbar">
+            {/* Menu Button */}
+            <button className="menu-btn" onClick={toggleSidebar}>
+              <i className="fas fa-bars"></i>
+            </button>
+
+            {/* Logo */}
+            <img src="/fresh.png" alt="Logo" className="logo" />
+
+            {/* Login/Logout Section */}
+            <div className="auth-section">
+              {username ? (
+                <div className="user-box">
+                  <span>Hi, {username} 👋</span>
+                  <button className="logout-btn" onClick={handleLogout}>Logout</button>
+                </div>
+              ) : (
+                <Link to="/login" className="login-link"><i className="fas fa-sign-in-alt"></i> Login</Link>
+              )}
+            </div>
+          </div>
 
           <Routes>
             <Route path="/" element={<Home />} />
