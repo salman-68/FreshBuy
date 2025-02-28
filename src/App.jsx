@@ -61,7 +61,7 @@ function App() {
             </button>
 
             {/* Logo */}
-            <img src="/fresh.png" alt="Logo" className="logo" />
+            <img src="/logo.png" alt="Logo" className="logo" />
 
             {/* Login/Logout Section */}
             <div className="auth-section">
@@ -71,7 +71,7 @@ function App() {
                   <button className="logout-btn" onClick={handleLogout}>Logout</button>
                 </div>
               ) : (
-                <Link to="/login" className="login-link"><i className="fas fa-sign-in-alt"></i> Login</Link>
+                <Link to="/login" className="login-btn"><i className="fas fa-sign-in-alt"></i> Login</Link>
               )}
             </div>
           </div>
